@@ -1,3 +1,5 @@
+Time complexity => O(1) for each function
+Space complexity => uses extra space due to auxiliary Stack 
 class MinStack {
     Stack<Integer> main, min; 
     // Stack<Integer> min;
@@ -24,6 +26,54 @@ class MinStack {
     
     public int getMin() {
         return min.peek();
+    }
+}
+
+/**
+ * Your MinStack object will be instantiated and called as such:
+ * MinStack obj = new MinStack();
+ * obj.push(val);
+ * obj.pop();
+ * int param_3 = obj.top();
+ * int param_4 = obj.getMin();
+ */
+MORE OPTIMISED SOLUTION using single variable & not using any auxiliary Stack
+Time complexity => O(1) for each function
+Space complexity => O(N)
+class MinStack {
+    Stack<Long> stack = new Stack<>();
+    long min = Integer.MAX_VALUE;
+    
+    public void push(int val) {
+        if(val<min){
+            long encrypt = 2l*val-min;
+            stack.push(encrypt);
+            min = val; 
+        }
+        else{
+            stack.push(1l * val);
+        }
+    }
+    
+    public void pop() {
+        if(stack.peek() > min){
+            stack.pop();
+        }
+        else{
+            min = 2l * min - stack.pop();
+        }
+    }
+    
+    public int top() {
+        long top = stack.peek();
+        if(stack.peek() > min){
+            return (int)top;
+        }
+        return (int)min;
+    }
+    
+    public int getMin() {
+        return (int)min;
     }
 }
 
