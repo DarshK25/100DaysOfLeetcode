@@ -1,0 +1,29 @@
+Time Complexity => O(n) due to for loop on n characters
+Space Complexity => O(n) due to Stack space
+
+class Solution {
+    public boolean isValid(String s) {
+        Stack<Character> stk = new Stack<>();
+        for(int idx = 0; idx < s.length() ; idx++){
+            char ch = s.charAt(idx);
+            if(ch == '}'){
+                if(stk.size() == 0 || stk.peek() != '{')
+                    return false;
+                stk.pop();
+            }
+            else if(ch == ')'){
+                if(stk.size() == 0 || stk.peek() != '(')
+                    return false;   
+                stk.pop();
+            }
+            else if(ch == ']'){
+                if(stk.size() == 0 || stk.peek() != '[')
+                    return false;   
+                stk.pop();
+            }
+            else stk.push(ch);
+        }
+        if(stk.size() > 0) return false;
+        return true;
+     }
+}
